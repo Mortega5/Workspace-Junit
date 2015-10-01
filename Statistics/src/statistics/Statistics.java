@@ -6,6 +6,9 @@ import java.util.Vector;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import exceptions.ErrorCategoryNumber;
+import exceptions.ErrorDataEmpty;
+
 public class Statistics {
 
 	private Vector<Float> data;
@@ -19,7 +22,10 @@ public class Statistics {
 		this.data = data;
 	}
 
-	public Float average() {
+	public Float average() throws ErrorDataEmpty {
+		if (data.size() == 0) {
+			throw new ErrorDataEmpty();
+		}
 		float sum = 0;
 		for (Float number : data) {
 			sum += number;
@@ -27,7 +33,10 @@ public class Statistics {
 		return sum / data.size();
 	}
 
-	public float variance() {
+	public float variance() throws ErrorDataEmpty {
+		if (data.size() == 0) {
+			throw new ErrorDataEmpty();
+		}
 		float sum = 0;
 		float N = data.size();
 		for (Float number : data) {
@@ -67,9 +76,13 @@ public class Statistics {
 		return list;
 	}
 
-	public String histogram(int categoryNumber) {
+	public String histogram(int categoryNumber) throws ErrorCategoryNumber, ErrorDataEmpty {
+		if (categoryNumber < 1) {
+			throw new ErrorCategoryNumber();
+		} else if (data.size() == 0) {
+			throw new ErrorDataEmpty();
+		}
 		float length = length();
-
 		int intervalo = (int) (Math.ceil(length / categoryNumber));
 
 		// Contamos elementos dentro del rango
