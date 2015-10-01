@@ -9,44 +9,44 @@ import exceptions.ErrorDataEmpty;
 
 public class Statistics {
 
-	private Vector<Float> data;
+	private Vector<Double> data;
 
 	/*
 	 * Constructor
 	 */
-	public Statistics(Vector<Float> data) {
+	public Statistics(Vector<Double> data) {
 		this.data = data;
 	}
 
-	public Float average() throws ErrorDataEmpty {
+	public double average() throws ErrorDataEmpty {
 		if (data.size() == 0) {
 			throw new ErrorDataEmpty();
 		}
-		float sum = 0;
-		for (Float number : data) {
+		double sum = 0;
+		for (Double number : data) {
 			sum += number;
 		}
 		return sum / data.size();
 	}
 
-	public float variance() throws ErrorDataEmpty {
+	public double variance() throws ErrorDataEmpty {
 		if (data.size() == 0) {
 			throw new ErrorDataEmpty();
 		}
-		float sum = 0;
-		float N = data.size();
-		float mean = average();
-		for (Float number : data) {
+		double sum = 0;
+		double N = data.size();
+		double mean = average();
+		for (Double number : data) {
 			sum += Math.pow(number - average(),2);
 		}
 		return sum/N;
 	}
 
-	private float length() {
+	private double length() {
 		// TODO comprobar que la lista no esta vacia
-		float max = data.get(0);
-		float min = data.get(0);
-		for (Float number : data) {
+		double max = data.get(0);
+		double min = data.get(0);
+		for (Double number : data) {
 			if (max < number) {
 				max = number;
 			}
@@ -60,7 +60,7 @@ public class Statistics {
 	private Map<Integer, Integer> mapping(int intervalo, int nCat) {
 		Map<Integer, Integer> list = new HashMap<Integer, Integer>();
 
-		for (Float number : data) {
+		for (Double number : data) {
 			int key = (int) Math.ceil(number) / nCat;
 			if (key > intervalo)
 				key--;
@@ -79,7 +79,7 @@ public class Statistics {
 		} else if (data.size() == 0) {
 			throw new ErrorDataEmpty();
 		}
-		float length = length();
+		double length = length();
 		int interval = (int) (Math.ceil(length / categoryNumber));
 
 		// Contamos elementos dentro del rango
