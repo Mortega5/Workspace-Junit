@@ -4,16 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import exceptions.ErrorCategoryNumber;
 import exceptions.ErrorDataEmpty;
 
 public class Statistics {
 
 	private Vector<Float> data;
-	private static int bar = 3;
-	private static int space = 4;
 
 	/*
 	 * Constructor
@@ -39,10 +35,11 @@ public class Statistics {
 		}
 		float sum = 0;
 		float N = data.size();
+		float mean = average();
 		for (Float number : data) {
-			sum += number * number / N;
+			sum += Math.pow(number - average(),2);
 		}
-		return sum - this.average();
+		return sum/N;
 	}
 
 	private float length() {
@@ -60,7 +57,7 @@ public class Statistics {
 		return Math.abs(max - min);
 	}
 
-	private Map<Integer, Integer> mapeo(int intervalo, int nCat) {
+	private Map<Integer, Integer> mapping(int intervalo, int nCat) {
 		Map<Integer, Integer> list = new HashMap<Integer, Integer>();
 
 		for (Float number : data) {
@@ -83,25 +80,23 @@ public class Statistics {
 			throw new ErrorDataEmpty();
 		}
 		float length = length();
-		int intervalo = (int) (Math.ceil(length / categoryNumber));
+		int interval = (int) (Math.ceil(length / categoryNumber));
 
 		// Contamos elementos dentro del rango
-		Map<Integer, Integer> list = mapeo(intervalo, categoryNumber);
+		Map<Integer, Integer> list = mapping(interval, categoryNumber);
 		int maxOcurrency = 0;
 		for (Map.Entry<Integer, Integer> entry : list.entrySet()) {
 			if (maxOcurrency < entry.getValue()) {
 				maxOcurrency = entry.getValue();
 			}
 		}
-		String[] histogram = new String[intervalo + 2];
+		String[] histogram = new String[interval + 2];
 		histogram[0] = "  ";
+		
   		for (int i = 0; i <= maxOcurrency + 1; i++) {
 			histogram[0] += "- ";
 		}
-  		for (Map.Entry<Integer, Integer> entry: list.entrySet()) {
-  			System.out.println("Clave: " + entry.getKey() + " Value: " + entry.getValue());
-  		}
-
+  		
 		for (int i = 1; i < histogram.length; i++) {
 			histogram[i] = i-1 + "|";
 			if (i - 1 < list.size()) {

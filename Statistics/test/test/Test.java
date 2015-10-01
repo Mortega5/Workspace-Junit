@@ -39,5 +39,3 @@ public class StatisticsTest {
 	
 	// Pruebas relativas al histograma
 	
-	
-}
