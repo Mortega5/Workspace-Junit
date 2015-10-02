@@ -40,9 +40,8 @@ public class SudokuVerifierTest {
 
 	@Test
 	public void crearUnNuevoSudoku() {
-		String valid3 = "598172436671934852234658917859347261147269385362815749426781593783596124915423678";
 		String error = "Se intenta crear un sudoku, pero no se almacena el mismo que se quiere añadir";
-		assertEquals(error, valid3, new SudokuVerifier(valid3).getCandidateSolution());
+		assertEquals(error, result, new SudokuVerifier(sudoku).getCandidateSolution());
 	}
 	
 	@Test
