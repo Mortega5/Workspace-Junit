@@ -32,7 +32,7 @@ public class StatisticsTest {
 		Vector<Double> data = new Vector<Double>();
 		filldata(data, 1);
 		Statistics test2 = new Statistics(data);
-		assertEquals((double)1.0, test2.average());
+		assertEquals((double)1.0, test2.average(), 0);
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class StatisticsTest {
 		Vector<Double> data = new Vector<Double>();
 		filldata(data, 9);
 		Statistics test2 = new Statistics(data);
-		assertEquals(5, test2.average());		
+		assertEquals(5.0, test2.average(), 0);		
 	}
 	
 	@Test(expected = ErrorDataEmpty.class)
@@ -55,12 +55,12 @@ public class StatisticsTest {
 		Vector<Double> data = new Vector<Double>();
 		filldata(data, 1);
 		Statistics test2 = new Statistics(data);
-		assertEquals(0, test2.variance());
+		assertEquals(0, test2.variance(), 0);
 	}
 	public void variance_ten_data() throws ErrorDataEmpty {
 		Vector<Double> data = new Vector<Double>();
 		filldata(data, 9);
 		Statistics test2 = new Statistics(data);
-		assertEquals(1, test2.variance());		
+		assertEquals(1, test2.variance(), 0);		
 	}
 }

@@ -1,0 +1,14 @@
+package source;
+
+public class SudokuVerifier {
+
+	public int validate(String candidateSolution) {
+		// 0 esta correcto
+		// 1 una celda contiene u nnumero no positivo de entre 1..9
+		// 2 todos los digitos aparecen una vez en un sub celda
+		// 3 los numeros aparecen una vez por fila
+		// 4 los numeros aparecen una vez por columa
+		
+		return 0;
+	}
+}

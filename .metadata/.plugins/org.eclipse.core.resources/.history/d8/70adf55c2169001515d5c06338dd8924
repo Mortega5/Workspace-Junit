@@ -1,0 +1,6 @@
+package exceptios;
+
+public class ErrorEmptyCandidateSolution {
+	public static final long serialVersionUID = 1L;
+
+}

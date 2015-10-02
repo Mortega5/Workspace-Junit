@@ -1,0 +1,30 @@
+package source;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SudokuVerifierTest {
+
+	SudokuVerifier sudoku = new SudokuVerifier();
+	String validSudoku ="547916238193284675628753491359421786462578913871639524916847352735162849284395167";
+	String noResolved= "547916238193284675628753491359421786462578913871639524916847352735162849284395165";
+	String validSudoku2 = "297534186468912735531678924924783561685491372173256849812345697756829413349167258";
+	String character_80 = "29753418646891273553167892492478356168549137217325684981234569775682941334916725";
+	String valid3 = "598172436671934852234658917859347261147269385362815749426781593783596124915423678";
+	String invalid_78 = "297534186468912735531678924924783561685445372173256849812345697756829413349152";
+	// Minimo 4 test: correcto, no fila, no columna, no celda
+	// no conjunto
+	
+	@Test
+	public void sudokuValido() {
+		assertEquals(0, sudoku.validate(validSudoku));
+	}
+	
+	@Test
+	public void sudokuNoCompleto() {
+		assertEquals(1, sudoku.validate(invalid_78));
+	}
+	
+	@Test
+}

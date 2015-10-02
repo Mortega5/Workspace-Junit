@@ -1,0 +1,40 @@
+package source;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SudokuVerifierTest {
+
+	SudokuVerifier sudoku = new SudokuVerifier();
+	String validSudoku ="547916238193284675628753491359421786462578913871639524916847352735162849284395167";
+	String invalid_78 = "547916238193284675628753491359421786462578913871639524916847352735162849284395";
+	String invalid_row_1 = "547916248193284675628753491359421786462578913871639524916847352735162849284395167";
+	String invalid_colum_1 ="547916238193284675628753491359421786462578913871639524916847352735162849284395167";
+
+	
+	// Minimo 4 test: correcto, no fila, no columna, no celda
+	// no conjunto
+	
+	@Test
+	public void sudokuValido() {
+		assertEquals(0, sudoku.validate(validSudoku));
+	}
+	
+	@Test
+	public void sudokuNoCompleto() {
+		assertEquals(-1, sudoku.validate(invalid_78));
+	}
+	
+	@Test
+	public void sudokuConFalloFila() {
+		assertEquals(-3, sudoku.validate(invalid_row_1));
+	}
+	
+	@Test
+	public void sudokuConFalloColumna() {
+		assertEquals(-4, sudoku.validate(invalid_row_1));
+
+	}
+	}
+}

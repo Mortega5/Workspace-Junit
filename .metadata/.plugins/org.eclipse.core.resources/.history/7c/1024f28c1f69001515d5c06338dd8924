@@ -1,0 +1,19 @@
+package source;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SudokuVerifierTest {
+
+	SudokuVerifier sudoku = new SudokuVerifier();
+	// Minimo 4 test: correcto, no fila, no columna, no celda
+	// no conjunto
+	
+	@Test
+	public void sudokuValido() {
+		String candidator = "";
+		assertEquals(0, sudoku.validate(candidator));
+	}
+
+}
