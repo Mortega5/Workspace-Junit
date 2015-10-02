@@ -1,0 +1,10 @@
+package sudoku;
+
+public class SudokuSkeleton {
+
+	private int[] sudokuMatrix;
+	
+	public SudokuSkeleton(int[] sudokuMatrix) {
+		this.sudokuMatrix = sudokuMatrix;
+	}
+}

@@ -1,0 +1,13 @@
+package sudoku;
+
+public class SudokuVerifier {
+
+	private int[] candidateSolution;
+
+	public SudokuVerifier(String candidateSolution) {
+		for (int i = 0; i < candidateSolution.length(); i++) {
+			this.candidateSolution = (int) candidateSolution.charAt(i);
+			}
+		}
+	}
+}

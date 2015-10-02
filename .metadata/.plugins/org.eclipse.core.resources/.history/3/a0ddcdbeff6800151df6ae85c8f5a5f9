@@ -1,0 +1,19 @@
+package test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(Parameterized.class)
+public class SudokuVerifierTest {
+	private String sudoku;
+	private static int sudokuLength = 81
+	@Test
+	public void test() {
+		String sudoku = 
+		SudokuSkeletonTest sudoku = new SudokuSkeletonTest(); 
+		fail("Not yet implemented");
+	}
+
+}

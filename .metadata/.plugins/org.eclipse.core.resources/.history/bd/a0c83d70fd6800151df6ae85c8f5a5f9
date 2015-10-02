@@ -1,0 +1,30 @@
+package sudoku;
+
+import exceptions.ErrorSudokuEmpty;
+
+public class SudokuSkeleton {
+
+	private int[] sudokuMatrix;
+	
+	public SudokuSkeleton(int[] sudokuMatrix) {
+		this.sudokuMatrix = sudokuMatrix;
+	}
+
+	public int[] getSudokuMatrix() {
+		return sudokuMatrix;
+	}
+	
+	public String toString() {
+		
+		if (sudokuMatrix == null) {
+			throw new ErrorSudokuEmpty();
+		}
+		String matrixString = "";
+		
+		for (int i = 0; i < sudokuMatrix.length; i++) {
+			matrixString += sudokuMatrix[i];
+		}
+		
+		return matrixString;
+	}
+}

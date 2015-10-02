@@ -1,0 +1,20 @@
+package test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import sudoku.SudokuSkeleton;
+
+public class SudokuSkeletonTest {
+
+	@Test
+	public void crearNuevoSudoku() {
+		SudokuSkeleton sudoku = new SudokuSkeleton();
+		
+		for
+		
+		fail("Not yet implemented");
+	}
+
+}

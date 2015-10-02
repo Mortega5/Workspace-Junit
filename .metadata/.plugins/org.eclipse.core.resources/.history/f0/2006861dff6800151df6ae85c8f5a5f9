@@ -1,0 +1,14 @@
+package sudoku;
+
+public class SudokuVerifier {
+
+	private int[] candidateSolution;
+
+	public SudokuVerifier(String candidateSolution) {
+		for (int i = 0; i < candidateSolution.length(); i++) {
+			if (candidateSolution.charAt(i) == '' ')
+			this.candidateSolution[i] = (int) candidateSolution.charAt(i);
+			}
+		}
+	}
+}

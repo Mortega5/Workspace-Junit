@@ -1,0 +1,6 @@
+1443786886203	Rename type 'Sudoku'
+1443787633055	Rename field 'sudokuMatrix'
+1443787911008	Delete element
+1443787919558	Delete element
+1443789641045	Delete element
+1443789729643	Encapsulate field 'candidateSolution'
