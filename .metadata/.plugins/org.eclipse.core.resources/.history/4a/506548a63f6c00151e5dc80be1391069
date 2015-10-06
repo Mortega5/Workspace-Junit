@@ -1,0 +1,61 @@
+package source;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class SudokuVerifierTest {
+
+	SudokuVerifier sudoku = new SudokuVerifier();
+	String validSudoku ="547916238193284675628753491359421786462578913871639524916847352735162849284395167";
+	String invalid_78 = "547916238193284675628753491359421786462578913871639524916847352735162849284395";
+	String invalid_row_1 = "147147147258258258369369369471471471582582582693693693714714714825825825936936936";
+	String invalid_colum_1 ="123465789456789132789123465123465789456789132789123465123465789456789132789123465";
+	String invalid_subgrid_1 ="825739164481856792796412853372581649618394275954267318249178536567923481183645927";
+	String negative_number = "-123456789123456789123456789123456789123456789123456789123456789123456789123456789";
+	String invalid_number = "1234567891234567891234567891234506789123456789123456789123456789123456789123456789";
+			
+	private static int CORRECT_SUDOKU = 0;
+	private static int CANDIDATE_ERROR = -1;
+	private static int SUBGRID_ERROR = -2;
+	private static int ROW_ERROR = -3;
+	private static int COLUNM_ERROR = -4;
+
+	
+	@Test
+	public void sudokuValido() {
+		assertEquals(CORRECT_SUDOKU, sudoku.validate(validSudoku));
+	}
+	
+	@Test
+	public void sudokuNoCompleto() {
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(invalid_78));
+	}
+	@Test
+	public void sudokuNumeroNegativo(){
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(negative_number));
+	}
+	@Test
+	public void sudokuConNumeroInvalido() {
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(invalid_number));
+
+	}
+	@Test
+	public void sudokuConFalloFila() {
+		assertEquals(ROW_ERROR, sudoku.validate(invalid_row_1));
+	}
+	
+	@Test
+	public void sudokuConFalloColumna() {
+		assertEquals(COLUNM_ERROR, sudoku.validate(invalid_colum_1));
+	}
+	@Test
+	public void sudokuConFalloSubMatriz() {
+		assertEquals(SUBGRID_ERROR, sudoku.validate(invalid_subgrid_1));
+	}
+	@Test
+	public void sudokuToString(){
+		System.out.println(sudoku.cadena());
+		assertTrue(true);
+	}
+}

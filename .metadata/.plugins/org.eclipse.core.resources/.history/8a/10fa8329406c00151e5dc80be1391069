@@ -1,0 +1,108 @@
+package source;
+
+import exceptios.ErrorInvalidCandidateSolution;
+
+public class SudokuVerifier {
+
+	private static int SUDOKU_ROWS = 9;
+	private static int SUDOKU_COLUNMS = 9;
+
+	private static int CORRECT_SUDOKU = 0;
+	private static int CANDIDATE_ERROR = -1;
+	private static int SUBGRID_ERROR = -2;
+	private static int ROW_ERROR = -3;
+	private static int COLUNM_ERROR = -4;
+
+	private int checkRowsAndColumns(int[][] matrix) {
+		int result = CORRECT_SUDOKU;
+
+		for (int i = 0; i < SUDOKU_ROWS && result == CORRECT_SUDOKU; i++) {
+			boolean[] setRows = new boolean[SUDOKU_ROWS];
+			boolean[] setColumns = new boolean[SUDOKU_COLUNMS];
+			for (int j = 0; j < SUDOKU_COLUNMS && result == CORRECT_SUDOKU; j++) {
+				if (setRows[matrix[i][j] - 1]) {
+					result = ROW_ERROR;
+				} else if (setColumns[matrix[j][i] - 1]) {
+					result = COLUNM_ERROR;
+				} else {
+					setRows[matrix[i][j] - 1] = true;
+					setColumns[matrix[j][i] - 1] = true;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	private int auxSubGrid(int[][] matrix, int row, int col) {
+		int result = CORRECT_SUDOKU;
+		boolean[] set = new boolean[SUDOKU_ROWS];
+		for (int i = row; i < row + 3; i++) {
+			for (int j = col; j < col + 3; j++) {
+				if (set[matrix[i][j] - 1]) {
+					return SUBGRID_ERROR;
+				} else {
+					set[matrix[i][j] - 1] = true;
+				}
+			}
+		}
+		return result;
+	}
+
+	private int checkSubGrid(int[][] matrix) {
+		int result = CORRECT_SUDOKU;
+
+		for (int i = 0; i < SUDOKU_ROWS && result == CORRECT_SUDOKU; i += 3) {
+			for (int j = 0; j < SUDOKU_COLUNMS && result == CORRECT_SUDOKU; j += 3) {
+				result = auxSubGrid(matrix, i, j);
+			}
+		}
+		return result;
+	}
+
+	public int validate(String candidateSolution) {
+		int[][] matrix = new int[SUDOKU_ROWS][SUDOKU_COLUNMS];
+		int result = CORRECT_SUDOKU;
+		if (candidateSolution.length() != SUDOKU_COLUNMS * SUDOKU_ROWS) {
+			result = CANDIDATE_ERROR;
+		}
+		for (int i = 0; i < SUDOKU_ROWS && result == CORRECT_SUDOKU; i++) {
+			for (int j = 0; j < SUDOKU_COLUNMS && result == CORRECT_SUDOKU; j++) {
+				int candidate = (int) candidateSolution.charAt(i * SUDOKU_ROWS + j);
+				if (candidate < 49 || candidate > 57) {
+					result = CANDIDATE_ERROR;
+				}
+				candidate = Character.getNumericValue(candidateSolution.charAt(i * SUDOKU_ROWS + j));
+				matrix[i][j] = candidate;
+			}
+		}
+		if (result == CORRECT_SUDOKU) {
+			result = checkSubGrid(matrix);
+		}
+
+		return result == CORRECT_SUDOKU ? checkRowsAndColumns(matrix) : result;
+	}
+
+	public String toString(String candidateSolution) throws ErrorInvalidCandidateSolution {
+		String result = "";
+		if (candidateSolution.length() != SUDOKU_COLUNMS * SUDOKU_ROWS) {
+			throw new ErrorInvalidCandidateSolution();
+		}
+		for (int i = 0; i < SUDOKU_ROWS; i++) {
+			if (i % 3 == 0) {
+				result += "----------------\n";
+			}
+			for (int j = 0; j < SUDOKU_COLUNMS; j++) {
+				int candidate = (int) candidateSolution.charAt(i * SUDOKU_ROWS + j);
+				if (candidate < 49 || candidate > 57) {
+					throw new ErrorInvalidCandidateSolution();
+				}
+				candidate = Character.getNumericValue(candidateSolution.charAt(i * SUDOKU_ROWS + j));
+				result += candidate + " ";
+			}
+			result += "\n";
+
+		}
+		return result;
+	}
+}

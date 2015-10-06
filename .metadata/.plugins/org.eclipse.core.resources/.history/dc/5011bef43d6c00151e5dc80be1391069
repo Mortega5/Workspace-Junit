@@ -1,0 +1,73 @@
+package source;
+
+public class SudokuVerifier {
+	
+	private static int SUDOKU_ROWS = SUDOKU_ROWS;
+	private static int SUDOKU_COLUNMS = SUDOKU_ROWS;
+	private int checkRowsAndColumns(int[][] matrix) {
+		int result = 0;
+		
+		for (int i = 0; i< SUDOKU_ROWS && result==0; i++) {
+			boolean[] setRows = new boolean[SUDOKU_ROWS];
+			boolean[] setColumns = new boolean[SUDOKU_COLUNMS];
+			for (int j = 0; j < SUDOKU_COLUNMS && result==0; j++) {
+				if (setRows[matrix[i][j]-1]) {
+					result = -3;
+				} else if (setColumns[matrix[j][i]-1]){
+					result = -4;
+				} else {
+					setRows[matrix[i][j]-1] = true;
+					setColumns[matrix[j][i]-1] = true;
+				}
+			}
+		}
+		
+		return result;
+	}
+	private int auxSubGrid(int[][] matrix, int row, int col) {
+		int result=0;
+		boolean[] set = new boolean[SUDOKU_ROWS];
+		for(int i = row; i < row + 3;i++) {
+			for(int j= col;j < col + 3; j++) {
+				if (set[matrix[i][j]-1]) {
+					return -2;
+				} else {
+					set[matrix[i][j]-1] = true;
+				}
+			}
+		}
+		return result;
+	}
+	private int checkSubGrid(int[][] matrix) {
+		int result = 0;
+		
+		for (int i= 0; i < SUDOKU_ROWS && result==0; i+=3) {
+			for (int j = 0; j < SUDOKU_COLUNMS && result==0; j+=3) {
+				result = auxSubGrid(matrix, i, j);
+			}
+		}
+		return result;
+	}
+	public int validate(String candidateSolution) {
+		int[][] matrix = new int[SUDOKU_ROWS][SUDOKU_COLUNMS];
+		int result = 0;
+		if (candidateSolution.length() != SUDOKU_COLUNMS*SUDOKU_ROWS) {
+			result = -1;
+		}
+		for (int i = 0; i < SUDOKU_ROWS && result == 0; i++) {
+			for (int j = 0; j < SUDOKU_COLUNMS && result ==0; j++) {
+				int candidate = (int) candidateSolution.charAt(i*SUDOKU_ROWS + j);
+				if ( candidate < 49 || candidate > 57) {
+					result = -1;
+				}
+				candidate = Character.getNumericValue(candidateSolution.charAt(i*SUDOKU_ROWS + j));
+				matrix[i][j] = candidate;
+			}
+		}
+		if (result == 0) {
+			result = checkSubGrid(matrix);
+		}
+
+		return result==0 ? checkRowsAndColumns(matrix) : result;
+	}
+}

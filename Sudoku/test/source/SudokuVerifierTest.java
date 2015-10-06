@@ -4,44 +4,65 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import exceptios.ErrorInvalidCandidateSolution;
+
 public class SudokuVerifierTest {
 
 	SudokuVerifier sudoku = new SudokuVerifier();
 	String validSudoku ="547916238193284675628753491359421786462578913871639524916847352735162849284395167";
 	String invalid_78 = "547916238193284675628753491359421786462578913871639524916847352735162849284395";
-	String invalid_row_1 = "547916248193284675628753491359421786462578913871639524916847352735162849284395167";
-	String invalid_colum_1 ="547916238593284675628753491359421786462578913871639524916847352735162849284395167";
-	String invalid_subgrid_1 ="557916238193284675628753491359421786462578913871639524916847352735162849284395167";
+	String invalid_row_1 = "147147147258258258369369369471471471582582582693693693714714714825825825936936936";
+	String invalid_colum_1 ="123465789456789132789123465123465789456789132789123465123465789456789132789123465";
+	String invalid_subgrid_1 ="825739164481856792796412853372581649618394275954267318249178536567923481183645927";
+	String negative_number = "-123456789123456789123456789123456789123456789123456789123456789123456789123456789";
+	String invalid_number = "1234567891234567891234567891234506789123456789123456789123456789123456789123456789";
+			
+	private static int CORRECT_SUDOKU = 0;
+	private static int CANDIDATE_ERROR = -1;
+	private static int SUBGRID_ERROR = -2;
+	private static int ROW_ERROR = -3;
+	private static int COLUNM_ERROR = -4;
 
-
-	
-	// Minimo 4 test: correcto, no fila, no columna, no celda
-	// no conjunto
 	
 	@Test
 	public void sudokuValido() {
-		assertEquals(0, sudoku.validate(validSudoku));
+		assertEquals(CORRECT_SUDOKU, sudoku.validate(validSudoku));
 	}
 	
 	@Test
 	public void sudokuNoCompleto() {
-		assertEquals(-1, sudoku.validate(invalid_78));
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(invalid_78));
 	}
-	
+	@Test
+	public void sudokuNumeroNegativo(){
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(negative_number));
+	}
+	@Test
+	public void sudokuConNumeroInvalido() {
+		assertEquals(CANDIDATE_ERROR, sudoku.validate(invalid_number));
+
+	}
 	@Test
 	public void sudokuConFalloFila() {
-		assertEquals(-3, sudoku.validate(invalid_row_1));
+		assertEquals(ROW_ERROR, sudoku.validate(invalid_row_1));
 	}
 	
 	@Test
 	public void sudokuConFalloColumna() {
-		assertEquals(-4, sudoku.validate(invalid_row_1));
-
+		assertEquals(COLUNM_ERROR, sudoku.validate(invalid_colum_1));
 	}
-	
 	@Test
 	public void sudokuConFalloSubMatriz() {
-		assertEquals(-2, sudoku.validate(invalid_subgrid_1));
-
+		assertEquals(SUBGRID_ERROR, sudoku.validate(invalid_subgrid_1));
+	}
+	@Test
+	public void sudokuToString(){
+		try {
+			System.out.println(sudoku.toString(validSudoku));
+		} catch (ErrorInvalidCandidateSolution e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(true);
 	}
 }
